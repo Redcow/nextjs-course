@@ -9,16 +9,19 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { Button } from '@/app/ui/button';
+import { updateInvoice } from '@/app/lib/actions';
 
-export default function EditInvoiceForm({
-  invoice,
-  customers,
-}: {
-  invoice: InvoiceForm;
-  customers: CustomerField[];
-}) {
+type PropsType = {
+  invoice: InvoiceForm,
+  customers: CustomerField[]
+}
+
+export default function EditInvoiceForm({ invoice, customers }: PropsType) {
+
+  const updateInvoiceWithId = (id: string) => (formData: FormData) => updateInvoice(id, formData)
+
   return (
-    <form>
+    <form action={updateInvoiceWithId(invoice.id)}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
